@@ -1,0 +1,26 @@
+FileEncryptor PART 1
+
+The FileEncryptor is a utility for encrypting and decrypting files using the AES
+(Advanced Encryption Standard) algorithm with Cipher Block Chaining (CBC) and PKCS5 Padding.
+
+Usage:
+
+    For encryption: java FileEncryptor.java enc inputFile outputFile
+    For decryption: java FileEncryptor.java dec key iv inputFile outputFile
+
+Note:
+    The input and output file paths should be relative or absolute file paths.
+    The key and iv to be used for decryption should be in base64 format and is obtained from the encryption process.
+
+Utility Overview:
+    The utility uses a SecureRandom generator to generate random keys and initialisation vector (IV) for the encryption process.
+    The key and IV are printed out in both Hex and Base64 encoded formats.
+    The utility supports decryption, but you need to supply the base64 encoded key and IV which were produced during the encryption process.
+    The utility uses a 128-bit key and IV (16 bytes) for the AES algorithm.
+    Upon completion, the utility prints out the file path where the encrypted or decrypted output file is located.
+
+Error:
+    If the correct number of arguments are not provided
+    If the mode provided is not 'enc' or 'dec'
+    If the key and IV are not provided for decryption
+

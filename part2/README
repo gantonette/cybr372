@@ -1,0 +1,40 @@
+PART 2: File Encryptor - Demonstrating Chosen Plaintext Attack (CPA) Security
+
+Description:
+Part 2 of the FileEncryptor demonstrates how CPA security can be implemented in a Java application.
+The code enhances the initial version by allowing users to specify secret keys as a base 64 string instead of a hardcoded key,
+and removes the need for specifying the IV while decrypting the file.
+
+To validate that the program works as expected, you can decrypt a previously encrypted file and
+confirm that the ciphertext has been varied on every attempt. This can be examined using the hexdump
+utility with the -b flag.
+
+Usage:
+When running this program, the usage is as follows: 'java FileEncryptor.java mode key inputFile outputFile'
+
+The program receives, as arguments, the following parameters:
+
+    Mode - it represents whether you want to enc (encrypt) or dec (decrypt).
+    Key - it is a base64-encoded string (representing the secret key to be used).
+    InputFile - name of the file to be encrypted or decrypted.
+    OutputFile - name of the file where the output will be written.
+
+In this program, the IV is treated as a salt and stored alongside the ciphertext.
+
+
+How to run:
+
+(1) Compile the program:
+       javac FileEncryptor.java
+
+(2) For encryption:
+       java FileEncryptor.java enc BASE64KEY inputFile encryptedFile
+       e.g: java FileEncryptor.java enc I1S/VnrYxUdkGawSgLAb8g== plaintext.txt ciphertext.enc
+
+(3) For decryption:
+        java FileEncryptor dec BASE64KEY decryptedFile encryptedFile
+        e.g: java FileEncryptor.java dec I1S/VnrYxUdkGawSgLAb8g== ciphertext.enc plaintext.txt
+
+For Decryption, the IV will automatically be read from the encrypted file.
+
+!! Please replace BASE64KEY, inputFile, encryptedFile and decryptedFile with your values
