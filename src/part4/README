@@ -1,0 +1,38 @@
+Part 4: Designing for changes in recommended key length and algorithms
+
+this part of the assignment is to encipher and decipher files using different algorithms and key lengths.
+it provides methods to encrypt (enc), decrypt (dec) and print file info (info).
+
+the main method reads arguments from the command line and determines what action to take.
+if the first argument is "enc", it reads the following arguments as the algorithm, key length, password, input file, and output file.
+it then calls the enc method. if the first argument is "dec", it reads the following arguments as the password, input file, and output file
+and then calls the dec method. if the first argument is "info", it reads the input file and calls the printInfo method.
+
+ENCRYPTION:
+this method encrypts a file using a specified algorithm and key length.
+it generates a salt, derives a key from the provided password using PBKDF2 with Hmac SHA256,
+initialises a cipher in encrypt mode with the derived key, and then writes the encrypted file.
+
+it also writes some metadata (algorithm, salt, and iv) to the beginning of the file and some metadata (algorithm and key length)
+to the file's attributes (if supported by the file system).
+
+if any exceptions are encountered, they're caught and logged, and the method prints to stdout the base64 encoding of the secret key.
+
+DECRYPTION:
+the dec method reverses what the enc method does. it reads the metadata from the encrypted file, derives the key using
+the same method as in enc, initialises a cipher in decrypt mode using the derived key and the read metadata, and writes
+the decrypted data to a new file.
+
+if any exceptions are encountered, they're caught and logged, and the method lets the user know that the decryption is complete and where they can find the decrypted file.
+
+printInfo:
+the printInfo prints out the algorithm and the key length used for the encryption.
+
+USAGE:
+(1) Compile: javac FileEncryptor.java
+(2) Enc: java FileEncryptor.java mode (enc or dec) algorithm (AES or Blowfish) keylength password inputFile (e.g: plaintext.txt) outputFile (ciphertext.enc)
+    java FileEncryptor.java enc Blowfish 128 mypassword plaintext.txt ciphertext.enc
+(3) Dec: java FileEncryptor.java mode (dec) password (same password used for encryption) outputFile (e.g: ciphertext.enc) inputfile (e.g: plaintext.txt)
+    java FileEncryptor.java dec mypassword ciphertext.enc plaintext.txt
+(4) info: java FileEncryptor.java info outputFile (ciphertext.enc)
+    java FileEncryptor.java info ciphertext.enc

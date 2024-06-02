@@ -1,0 +1,36 @@
+PART 3 : Generating a Secret Key from a Password
+
+This part is designed to secure files by using a password input from the user as a secret key to encrypt and decrypt files.
+A salt is added and iteratively hashed to ensure the security of the password.
+
+This approach to guarding file security aligns with industry standards including NIST recommendations (PBKDF2) and RFC2898.
+It further follows advice from OWASP for password storage.
+
+How to Run:
+
+(1) Encryption
+To encrypt a file, use the following command:
+    java FileEncryptor.java enc password inputFile outputFile
+
+'enc' indicates the encryption mode, 'password' is the input from the user used in the encryption process,
+while 'inputFile' and 'outputFile' refer to the file to be encrypted and the destination of the encrypted file, respectively.
+
+An example of encryption:
+    java FileEncryptor.java enc mrpeanutbutter plaintext.txt ciphertext.enc
+
+Upon successful encryption, the program will output the generated Key and IV,
+and save them into 'salt.enc' and 'iv.enc' files respectively for future decryption.
+The console will display the paths where these files are stored.
+
+
+(2) Decryption
+To decrypt a file, use the following command:
+    java FileEncryptor.java dec password inputFile outputFile
+
+'password' must be the same used during the encryption process. 'inputFile' is the file to be
+decrypted and 'outputFile' is where the decrypted file will be stored.
+
+An example of the decryption command is:
+    java FileEncryptor.java dec mrpeanutbutter ciphertext.enc plaintext.txt
+
+During decryption, the 'salt.enc' and 'iv.enc' files are used, and it will display the recovered Key.
